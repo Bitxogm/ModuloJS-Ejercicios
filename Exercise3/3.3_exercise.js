@@ -6,15 +6,20 @@
 
 const input1 = 'string';
 /**
- * Reverse the received string and it length
- * @param {string} input 
- * @returns string
+ * Reverse the received string and its number of characters
+ * This implementation uses non-mutating methods (split, reduce) for a functional approach.
+ * @param {string} inputString
+ * @returns {string} The reversed string and its length
 */
 
 // create your function here
 const reverseStringFunction = (inputString) => {
-  const reverseString = inputString.split('').reverse().join('');
-  return inputString.length + ' ' + reverseString;
+  const stringInputToArray = inputString.split('');
+  const reversedArray = stringInputToArray.reduce((acc, char) => {
+    return char + acc;
+  }, '');
+  const output = stringInputToArray.length + ' ' + reversedArray;
+  return output;
 }
 
 const firstResult = reverseStringFunction(input1); // '6 gnirts'

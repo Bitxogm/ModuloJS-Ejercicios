@@ -9,4 +9,5 @@ const usuario = {
   Buscando: false,
 };
 
-console.log(`El modulo de React comienza el ${usuario.Temas[2].Inicio}`);
+const inicioReact =` ${usuario.Temas[2].Inicio}`
+console.log(inicioReact);

@@ -35,6 +35,31 @@ proyectos: [
 }
 ];
 
+/**
+ * Filter the developers that have JavaScript as a skill
+ * @param {Array<Oject> } datos - List of developers
+ * @returns {Array<Object>} List of developers that have JavaScript
+ */
+const jsDevelopers = datos.filter((developer) => {
+  const jsDeveloper = developer.habilidades.includes('JavaScript');
+  return jsDeveloper;
+});
+console.log('/* desarrolladoresJavascript */ \n',jsDevelopers);
+
+/**
+ * Get the names of the projects in an unique list
+ * @param {Array<Object>} datos - List of developers
+ * @returns {Array<string>} List of projects names
+ */
+const nombresProyectos = datos.map((person) => {
+  const projects = person.proyectos.map((workingProjects) => {
+    return workingProjects.nombre;
+  });
+  return projects;
+}).flat();
+
+console.log(nombresProyectos);
+
 // Tenemos que hacer las operaciones necesarias para obtener estos 2 listados:
 /* desarrolladoresJavascript 
 [
