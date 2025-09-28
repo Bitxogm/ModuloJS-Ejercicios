@@ -32,3 +32,6 @@ const thirdInput = 11234;
 const thirdResult = separateNumber(thirdInput); // ->'1-1-2-3-4'
 console.log(thirdResult);
 
+console.log(input);
+console.log(secondInput);
+console.log(thirdInput);

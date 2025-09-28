@@ -2,8 +2,28 @@
  Nuestro cliente tiene un array de datos y nos ha pedido que saquemos la siguiente
  información. El listado de los desarrolladores que tengan como habilidad “JavaScript” y el
  listado de los proyectos en el que sus desarrolladores trabajan.
-Estos son los datos: */
+ Tenemos que hacer las operaciones necesarias para obtener estos 2 listados:
+ desarrolladoresJavascript 
+[
+{
+"id": 1,
+"nombre": "Juan",
+"habilidades": ["JavaScript", "HTML", "CSS"],
+"proyectos": [
+{ "id": 1, "nombre": "Proyecto 1"},
+{ "id": 2, "nombre": "Proyecto 2" }
+]
+}
+]
+ nombresProyectos 
+['Proyecto 1', 'Proyecto 2', 'Proyecto 3', 'Proyecto 4', 'Proyecto 5',
+'Proyecto 6'] 
 
+Hay que crear un archivo transform.js con la solución. Este archivo tiene que tener 2
+funciones que nos retornen los valores correctos. NO USAR FOR NI WHILE. Se trata de un
+ejercicio para practicar el uso de map y filter. 
+Estos son los datos: 
+*/
 
 const datos = [
 {
@@ -40,11 +60,11 @@ proyectos: [
  * @param {Array<Oject> } datos - List of developers
  * @returns {Array<Object>} List of developers that have JavaScript
  */
-const jsDevelopers = datos.filter((developer) => {
+const findJavascriptDevelopers = datos.filter((developer) => {
   const jsDeveloper = developer.habilidades.includes('JavaScript');
   return jsDeveloper;
 });
-console.log('/* desarrolladoresJavascript */ \n',jsDevelopers);
+console.log('/* desarrolladoresJavascript */ \n', findJavascriptDevelopers);
 
 /**
  * Get the names of the projects in an unique list
@@ -58,25 +78,4 @@ const nombresProyectos = datos.map((person) => {
   return projects;
 }).flat();
 
-console.log(nombresProyectos);
-
-// Tenemos que hacer las operaciones necesarias para obtener estos 2 listados:
-/* desarrolladoresJavascript 
-[
-{
-"id": 1,
-"nombre": "Juan",
-"habilidades": ["JavaScript", "HTML", "CSS"],
-"proyectos": [
-{ "id": 1, "nombre": "Proyecto 1"},
-{ "id": 2, "nombre": "Proyecto 2" }
-]
-}
-]
- nombresProyectos 
-['Proyecto 1', 'Proyecto 2', 'Proyecto 3', 'Proyecto 4', 'Proyecto 5',
-'Proyecto 6'] */
-
-/*Hay que crear un archivo transform.js con la solución. Este archivo tiene que tener 2
-funciones que nos retornen los valores correctos. NO USAR FOR NI WHILE. Se trata de un
-ejercicio para practicar el uso de map y filter. */
+console.log('/* nombresProyectos */ \n',nombresProyectos);
