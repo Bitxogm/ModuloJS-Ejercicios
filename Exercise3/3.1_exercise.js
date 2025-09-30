@@ -41,4 +41,4 @@ const input3 = [
 ];
 
 const finalOutput3 = pathFunctional(input3); // Output => 'programming/languages/easy/beginner/useful/pythonstuff.py'
-console.log(finalOutput3);
+console.log(finalOutput3)

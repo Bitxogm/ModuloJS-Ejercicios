@@ -1,3 +1,18 @@
+/**
+ * @typedef {Object} Modulo
+ * @property {string} modulo - El nombre del módulo/tema del bootcamp.
+ * @property {string} inicio - La fecha de inicio del módulo (YYYY-MM-DD).
+ */
+
+/**
+ * @typedef {Object} User
+ * @property {string} nombre - El nombre del usuario.
+ * @property {string} apellidos - Los apellidos del usuario.
+ * @property {Modulo[]} temas - Los modulos del bootcamp y fecha inicio
+ * @property {boolean} [activo=true] - Indica si el usuario está activo (opcional).
+ */
+
+
 const usuario = {
   nombre: 'Juan',
   apellidos: 'Diaz',
@@ -15,8 +30,9 @@ const usuario = {
       inicio: '2025-08-12'
     },
   ],
-  buscando: false,
+  activo: true,
 };
 
-const inicioReact = usuario.temas[2].inicio;
+const moduloReact = usuario.temas.find( (tema) => tema.modulo === 'React');
+const inicioReact = moduloReact ? moduloReact.inicio : 'Modulo no encontrado';
 console.log({ inicioReact });

@@ -4,7 +4,7 @@
 # =================================================================
 # Dependencias y Salidas de Build
 # =================================================================
-node_modules/       # Directorio de dependencias de Node
+node_modules      # Directorio de dependencias de Node
 jspm_packages/
 web_modules/        # Snowpack
 bower_components

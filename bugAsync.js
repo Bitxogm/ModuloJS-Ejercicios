@@ -6,7 +6,6 @@ llamado bugAsync.js con la solución.
 */
 
 // Este programa simula una llamada asincrónica para obtener un usuario
-// Este programa simula una llamada asincrónica para obtener un usuario
 // function obtenerUsuario(id) {
 // let usuario;
 // setTimeout(() => {
@@ -21,55 +20,28 @@ llamado bugAsync.js con la solución.
 
 
 
-
-
-
-
-// Promise
 function obtenerUsuario(id) {
   let usuario;
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if(id === 1){
-         usuario = {id:1, name: 'John Doe'};
-        resolve(usuario)
-      }else{
-        const error = `Id not found in promise`
-        reject(error)
+      if (id === 1) {
+        usuario = { id: 1, name: 'John Doe' };
+        resolve(usuario);
+      } else {
+        reject(`Usuario con id : ${id} no encontrado`)
       }
     }, 2000);
-      console.log(`Calling promise`)
-  });
-}
-obtenerUsuario(1)
-.then(usuario => console.log(`Resolviendo promesa`,usuario))
-.catch(error => console.log(error)); 
-
-
-// Async await
-
-function getUserAsync(id) {
-  let usuario
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if(id === 1){
-         usuario = { id: 1, name: 'John Doe'};
-        resolve(usuario);
-      }else{
-        reject((`User with id: ${id} not found`));  
-      }
-    },4000);
-    console.log(`Esperando Async await`);
   });
 }
 
 async function showUser() {
-  try{
-    const encontrarUsuario = await getUserAsync(1);
-    console.log('User dentro de async await',encontrarUsuario);
-  }catch(error){
-    console.log(error);
-  }
-}
+  console.log('calling');
+  try {
+    const result = await obtenerUsuario(1);
+    console.log(result);
+  } catch (error) {
+    console.log('Error: ', error);
+  };
+};
 showUser();
