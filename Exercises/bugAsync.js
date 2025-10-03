@@ -21,27 +21,24 @@ llamado bugAsync.js con la solución.
 
 
 function obtenerUsuario(id) {
-  let usuario;
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (id === 1) {
-        usuario = { id: 1, name: 'John Doe' };
-        resolve(usuario);
-      } else {
-        reject(`Usuario con id : ${id} no encontrado`)
+        resolve({ id: 1, nombre: 'John Doe' });
       }
-    }, 2000);
+      reject(`Usuario con id : ${id} no encontrado`)
+    }, 7000);
   });
 }
 
-async function showUser() {
-  console.log('calling');
+ const showUser = async () => {
+  console.log('Obteniendo usuario...');
   try {
-    const result = await obtenerUsuario(1);
-    console.log(result);
+    const usuario = await obtenerUsuario(1);
+    console.log(`Resuelto con exito , el usuario es : ${JSON.stringify(usuario)}`);
   } catch (error) {
-    console.log('Error: ', error);
+    console.log(error);
   };
-};
+}
 showUser();

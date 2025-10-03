@@ -25,6 +25,7 @@ ejercicio para practicar el uso de map y filter.
 Estos son los datos: 
 */
 
+
 const datos = [
   {
     id: 1,
@@ -56,31 +57,44 @@ const datos = [
 ];
 
 /**
+ * 
+ * @param {Array<Object>} filterList - Filteres List
+ * @param {} hability - Hability for error message
+ * @returns {Array<Object> | string} - List or error message
+ */
+const validateResponse = (filterList, hability) => {
+  if (filterList.length > 0) {
+    return filterList
+  } else {
+    return `No hay developers con esta habilidad : ${hability}`
+  }
+}
+
+/**
  * Filter the developers that have JavaScript as a skill
  * @param {Array<Oject> } datos - List of developers
- * @returns {Array<Object>} List of developers that have JavaScript
+ * @param {string} habilidad - Hability to find
+ * @returns {Array<Object>} List of developers with the required hability
  */
-const findJavascriptDevelopers = datos.filter((developer) => {
-  const jsDeveloper = developer.habilidades.includes('JavaScript');
-  return jsDeveloper;
-});
-console.log('/* desarrolladoresJavascript */ \n', findJavascriptDevelopers);
+
+const getDeveloperByHability = (datos, hability) => {
+  const filterDevelopers = datos.filter((developer) => {
+    return developer.habilidades.includes(hability);
+  });
+  return validateResponse(filterDevelopers, hability)
+}
+
+const JsDevelopers = getDeveloperByHability(datos, 'JavaScript');
+console.log(`Desarrolladores JavaScript :`, JsDevelopers);
 
 /**
  * Get the names of the projects in an unique list
  * @param {Array<Object>} datos - List of developers
  * @returns {Array<string>} List of projects names
  */
-const nombresProyectos = datos.map((person) => {
-  const projects = person.proyectos.map((workingProjects) => {
-    return workingProjects.nombre;
-  });
-  return projects;
-}).flat();
 
-const nombresProyectos1 = datos.flatMap((person) =>{ 
-  return person.proyectos.map((proyecto) => proyecto.nombre)
+const nombresProyectos = datos.flatMap((allProjects) => {
+  return allProjects.proyectos.map((proyecto) => proyecto.nombre)
 });
 
-console.log('/* nombresProyectos */ \n', nombresProyectos);
-console.log('/* nombresProyectos */ \n', nombresProyectos1);
+console.log('/* nombresProyectos */ ', nombresProyectos);
