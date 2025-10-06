@@ -21,7 +21,7 @@ const musicCatalog = () => {
    * Array of totalPlaylist in the catalog.
    * @type {Playlist[]}
    */
-  let totalPlaylists = [];
+  let playlists = [];
 
   /**
    * Adds a new playlist to the catalog.
@@ -32,16 +32,16 @@ const musicCatalog = () => {
       name: playlistName,
       songs: [],
     };
-    totalPlaylists = [...totalPlaylists, newPlaylist];
-    console.log(`Playlist ${playlistName} created. Total ${totalPlaylists.length}`);
+    playlists = [...playlists, newPlaylist];
+    console.log(`Playlist ${playlistName} created. Total ${playlists.length}`);
   };
 
   /**
-   * Gets all totalPlaylists in the catalog.
-   * @returns {Playlist[]} The list of all totalPlaylists.
+   * Gets all playlists in the catalog.
+   * @returns {Playlist[]} The list of all playlists.
    */
   const getAllPlaylists = () => {
-    return totalPlaylists;
+    return playlists;
   };
 
   /**
@@ -49,9 +49,9 @@ const musicCatalog = () => {
    * @param {string} playlistName - The name of the playlist to remove.
    */
   const removePlaylist = (playlistName) => {
-    const updatedPlaylist = totalPlaylists.filter(playlist => playlist.name !== playlistName);
-    totalPlaylists = updatedPlaylist;
-    console.log(`Playlist ${playlistName} removed. Total ${totalPlaylists.length}`);
+    const updatedPlaylist = playlists.filter(playlist => playlist.name !== playlistName);
+    playlists = updatedPlaylist;
+    console.log(`Playlist ${playlistName} removed. Total ${playlists.length}`);
   };
 
   /**
@@ -61,7 +61,7 @@ const musicCatalog = () => {
    * @throws {Error} If the playlist is not found.
    */
   const addSongToPlaylist = (playlistName, song) => {
-    const playlistIndex = totalPlaylists.findIndex(playlist => playlist.name === playlistName);
+    const playlistIndex = playlists.findIndex(playlist => playlist.name === playlistName);
     if (playlistIndex === -1) {
       throw new Error(`Playlist ${playlistName} not found`);
     }
@@ -70,13 +70,13 @@ const musicCatalog = () => {
       ...song,
       favorite: false,
     };
-    totalPlaylists = totalPlaylists.map((playlist, index) => index === playlistIndex
+    playlists = playlists.map((playlist, index) => index === playlistIndex
       ? { ...playlist, songs: [...playlist.songs, newSong] }
       : playlist
     );
 
     console.log(`Song ${song.title} added to playlist ${playlistName}.`);
-    console.log(totalPlaylists)
+    console.log(playlists)
   }
 
 
@@ -87,32 +87,38 @@ const musicCatalog = () => {
    * @throws {Error} If the playlist or song is not found.
    */
   const removeSongFromPlaylist = (playlistName, title) => {
-     const playlistIndex = totalPlaylists.findIndex(playlist => playlist.name === playlistName);
-     if(playlistIndex === -1){
-      return
-     }
-     
-     totalPlaylists = totalPlaylists.map((playlist, index) => {
-      if(index !== playlistIndex){
+    const playlistIndex = playlists.findIndex(playlist => playlist.name === playlistName);
+
+
+    if (playlistIndex === -1) {
+      throw new Error(`Playlist ${playlistName} not found`);
+    }
+
+    const songsBeforeFilter = playlists[playlistIndex].songs;
+
+    playlists = playlists.map((playlist, index) => {
+      if (index !== playlistIndex) {
         return playlist;
       }
-      const updateSongs = playlist.songs.filter(song => song.title !== title);
+
+      const updatedSongs = playlist.songs.filter(song => song.title !== title);
+
       return {
         ...playlist,
-        songs: updateSongs
+        songs: updatedSongs
       };
-     });
-     console.log(totalPlaylists);
-     console.log(`Song ${title} removed from playlist ${playlistName}`);
-     console.log(totalPlaylists);
-   
-   };
+    });
 
+    const songsAfterFilter = playlists[playlistIndex].songs;
 
+    if (songsAfterFilter.length === songsBeforeFilter.length) {
+      throw new Error(`Song "${title}" not found in playlist "${playlistName}"`);
+    }
 
-
-
-
+    console.log(playlists);
+    console.log(`Song ${title} removed from playlist ${playlistName}`);
+    console.log(playlists);
+  };
 
 
   /**
@@ -121,7 +127,37 @@ const musicCatalog = () => {
    * @param {string} title - The title of the song to mark as a favorite.
    * @returns {void}
    */
-  const favoriteSong = (playlistName, title) => { };
+  const favoriteSong = (playlistName, title) => {
+
+
+    const playlistIndex = playlists.findIndex(playlist => playlist.name === playlistName);
+
+    if (playlistIndex === -1) {
+      return;
+    }
+
+    playlists = playlists.map((playlist, index) => {
+      if (index !== playlistIndex) {
+        return playlist
+      }
+
+      const updatedSongs = playlist.songs.map(song => {
+        if (song.title !== title) {
+          return song;
+        }
+
+        return {
+          ...song,
+          favorite: !song.favorite
+        };
+      });
+
+      return {
+        ...playlist,
+        songs: updatedSongs,
+      }
+    });
+  };
 
   /**
    * Sorts songs in a specific playlist by a given criterion (title, artist, or duration).
@@ -130,8 +166,7 @@ const musicCatalog = () => {
    * @returns {void}
    * @throws {Error} If the playlist is not found or the criterion is invalid.
    */
-  const sortSongs = (playlistName, criterion) => { };
-
+  const sortSongs = (playlistName, criterion) => { }
   return { createPlaylist, addSongToPlaylist, removeSongFromPlaylist, sortSongs, getAllPlaylists, removePlaylist, favoriteSong };
 };
 
