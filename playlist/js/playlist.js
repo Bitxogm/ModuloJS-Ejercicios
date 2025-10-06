@@ -18,10 +18,10 @@
 
 const musicCatalog = () => {
   /**
-   * Array of playlists in the catalog.
+   * Array of totalPlaylist in the catalog.
    * @type {Playlist[]}
    */
-  let playlists = [];
+  let totalPlaylists = [];
 
   /**
    * Adds a new playlist to the catalog.
@@ -32,16 +32,16 @@ const musicCatalog = () => {
       name: playlistName,
       songs: [],
     };
-    playlists = [...playlists, newPlaylist];
-    console.log(`Playlist ${playlistName} created. Total ${playlists.length}`);
+    totalPlaylists = [...totalPlaylists, newPlaylist];
+    console.log(`Playlist ${playlistName} created. Total ${totalPlaylists.length}`);
   };
 
   /**
-   * Gets all playlists in the catalog.
-   * @returns {Playlist[]} The list of all playlists.
+   * Gets all totalPlaylists in the catalog.
+   * @returns {Playlist[]} The list of all totalPlaylists.
    */
   const getAllPlaylists = () => {
-    return playlists;
+    return totalPlaylists;
   };
 
   /**
@@ -49,9 +49,9 @@ const musicCatalog = () => {
    * @param {string} playlistName - The name of the playlist to remove.
    */
   const removePlaylist = (playlistName) => {
-    const updatedPlaylist = playlists.filter(playlist => playlist.name !== playlistName);
-    playlists = updatedPlaylist;
-    console.log(`Playlist ${playlistName} removed. Total ${playlists.length}`);
+    const updatedPlaylist = totalPlaylists.filter(playlist => playlist.name !== playlistName);
+    totalPlaylists = updatedPlaylist;
+    console.log(`Playlist ${playlistName} removed. Total ${totalPlaylists.length}`);
   };
 
   /**
@@ -61,7 +61,7 @@ const musicCatalog = () => {
    * @throws {Error} If the playlist is not found.
    */
   const addSongToPlaylist = (playlistName, song) => {
-    const playlistIndex = playlists.findIndex(playlist => playlist.name === playlistName);
+    const playlistIndex = totalPlaylists.findIndex(playlist => playlist.name === playlistName);
     if (playlistIndex === -1) {
       throw new Error(`Playlist ${playlistName} not found`);
     }
@@ -70,22 +70,50 @@ const musicCatalog = () => {
       ...song,
       favorite: false,
     };
-
-    // Versión sin mutación:
-    playlists = playlists.map((playlist, index) => index === playlistIndex
+    totalPlaylists = totalPlaylists.map((playlist, index) => index === playlistIndex
       ? { ...playlist, songs: [...playlist.songs, newSong] }
       : playlist
     );
 
     console.log(`Song ${song.title} added to playlist ${playlistName}.`);
+    console.log(totalPlaylists)
   }
+
+
   /**
    * Removes a song from a specific playlist.
    * @param {string} playlistName - The name of the playlist to remove the song from.
    * @param {string} title - The title of the song to remove.
    * @throws {Error} If the playlist or song is not found.
    */
-  const removeSongFromPlaylist = (playlistName, title) => { };
+  const removeSongFromPlaylist = (playlistName, title) => {
+     const playlistIndex = totalPlaylists.findIndex(playlist => playlist.name === playlistName);
+     if(playlistIndex === -1){
+      return
+     }
+     
+     totalPlaylists = totalPlaylists.map((playlist, index) => {
+      if(index !== playlistIndex){
+        return playlist;
+      }
+      const updateSongs = playlist.songs.filter(song => song.title !== title);
+      return {
+        ...playlist,
+        songs: updateSongs
+      };
+     });
+     console.log(totalPlaylists);
+     console.log(`Song ${title} removed from playlist ${playlistName}`);
+     console.log(totalPlaylists);
+   
+   };
+
+
+
+
+
+
+
 
   /**
    * Marks a song as a favorite or removes the favorite status.
