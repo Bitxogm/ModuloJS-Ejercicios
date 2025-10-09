@@ -50,8 +50,13 @@ const testRemovals = () => {
 
     // CASO 2: Intentar eliminar una canción que NO existe
     console.log("\n[CASO 2] Intentando eliminar una canción que no existe en 'Playlist 2'...");
-    // Esto debería generar el mensaje de error que definiste, pero el catálogo no debería cambiar
-    myMusicCatalog.removeSongFromPlaylist(playlist2, 'Canción Inexistente'); 
+  try {
+        myMusicCatalog.removeSongFromPlaylist(playlist2, 'Canción Inexistente');
+        console.log("❌ ERROR: El código debió lanzar un error, pero no lo hizo.");
+    } catch (error) {
+        // Capturamos el error (lo que esperábamos que pasara)
+        console.log(`✅ ÉXITO: El error esperado fue capturado: ${error.message}`);
+    } 
     
     // Verificamos el estado de Playlist 2: debería tener 3 canciones (sin cambios)
     console.log("Playlist 2 (DESPUÉS):", myMusicCatalog.getAllPlaylists()[1]);
@@ -71,6 +76,37 @@ const testRemovals = () => {
 };
 
 testRemovals();
+// --- PRUEBAS DE FAVORITO ---
+console.log("\n--- INICIANDO PRUEBAS DE FAVORITO ---");
+
+const testFavorite = () => {
+    const songToToggle = newSong.title; // 'Song 1'
+    
+    // Antes de la prueba, verificamos que 'Song 1' en Playlist 2 NO es favorita
+    console.log("Playlist 2 (INICIO):", myMusicCatalog.getAllPlaylists()[1].songs[0].favorite); // Debería ser false
+
+    // CASO 1: Marcar como favorito (debe cambiar a true)
+    console.log("\n[CASO 1] Marcando 'Song 1' en Playlist 2 como favorita...");
+    myMusicCatalog.favoriteSong(playlist2, songToToggle); 
+    
+    // Verificamos el estado: debe ser true
+    console.log("Playlist 2 (FAVORITA):", myMusicCatalog.getAllPlaylists()[1].songs[0].favorite);
+    
+    // CASO 2: Desmarcar como favorito (debe cambiar a false)
+    console.log("\n[CASO 2] Desmarcando 'Song 1' en Playlist 2...");
+    myMusicCatalog.favoriteSong(playlist2, songToToggle); 
+    
+    // Verificamos el estado: debe ser false (el toggle funcionó dos veces)
+    console.log("Playlist 2 (NO FAVORITA):", myMusicCatalog.getAllPlaylists()[1].songs[0].favorite);
+    
+    // CASO 3: Intentar marcar una canción inexistente (Debería lanzar error si añadiste la validación de la canción)
+    console.log("\n[CASO 3] Intentando marcar canción inexistente...");
+    // myMusicCatalog.favoriteSong(playlist2, 'Canción No Existe'); // Descomentar si añadiste la validación
+};
+
+testFavorite();
+
+
 
 // Verificamos el estado final del catálogo completo (opcional, pero útil)
 console.log("\n--- ESTADO FINAL DEL CATÁLOGO ---");
