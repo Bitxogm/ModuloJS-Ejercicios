@@ -5,7 +5,6 @@
  thirdInput -> '1-1-2-3-4'
  */
 
-const input = 10;
 // create your function here
 
 /**
@@ -13,7 +12,7 @@ const input = 10;
  * This implementation uses non-mutating methods (split, join) for a functional approach.
  * @param {number} inputNumber - The number wose digits will be separated
  * @returns {string} A hyphen-separated string of the digits of the input number
- */
+*/
 const separateNumber = (inputNumber) => {
   const stringInput = inputNumber.toString();
   const arrayInput = stringInput.split('');
@@ -21,6 +20,7 @@ const separateNumber = (inputNumber) => {
   return output
 }
 
+const input = 10;
 const firstResult = separateNumber(input); // ->'1-0'
 console.log(firstResult);
 

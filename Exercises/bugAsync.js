@@ -19,26 +19,44 @@ llamado bugAsync.js con la solución.
 // console.log(usuario);
 
 
+const users = [
+  { id: 1, name: 'John Doe' },
+  { id: 2, name: 'Mary Smith' },
+  { id: 3, name: 'Peter Parker' }
+];
 
-function obtenerUsuario(id) {
+const getUserById = (idToFind) => {
+
+  if (typeof idToFind !== 'number' || idToFind < 1)
+    return Promise.reject(new Error(`Invalid user Id`));
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (id === 1) {
-        resolve({ id: 1, nombre: 'John Doe' });
-      }
-      reject(`Usuario con id : ${id} no encontrado`)
-    }, 7000);
-  });
-}
+      const userFound = users.find(user => user.id === idToFind);
 
- const showUser = async () => {
-  console.log('Obteniendo usuario...');
+      if (userFound) {
+        return resolve(userFound);
+      }
+      reject(new Error(`User with id : ${idToFind}, not found`));
+    }, 2000);
+  });
+};
+
+const showUser = async (userId) => {
+  console.log(`Getting user with Id ${userId}`);
+
   try {
-    const usuario = await obtenerUsuario(1);
-    console.log(`Resuelto con exito , el usuario es : ${JSON.stringify(usuario)}`);
+    const user = await getUserById(userId);
+    console.log(`Resolved successfully, the user is ${JSON.stringify((user))} `)
   } catch (error) {
-    console.log(error);
-  };
-}
-showUser();
+    console.error(error.message);
+  }
+};
+
+// showUser(0);
+showUser(1);
+// showUser(2);
+// showUser(3);
+// showUser('a')
+// showUser(11);
+

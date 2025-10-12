@@ -56,18 +56,20 @@ const datos = [
   }
 ];
 
+// ! Mantengo en español nombre lista y objetos y propiedades...
+
 /**
- * 
+ * Check if the filtered list has elements.
+ * If the list is not empty , it returns the list, otherwise, it reurns a detailed error message
  * @param {Array<Object>} filterList - Filteres List
- * @param {} hability - Hability for error message
- * @returns {Array<Object> | string} - List or error message
+ * @param {string} hability - The search criteria (hability) used for the error message
+ * @returns {Array<Object> | string} - The filtered list or the error message
  */
 const validateResponse = (filterList, hability) => {
   if (filterList.length > 0) {
     return filterList
-  } else {
-    return `No hay developers con esta habilidad : ${hability}`
-  }
+  };
+  return `There isn't developers with hability : ${hability}`
 }
 
 /**
@@ -84,8 +86,10 @@ const getDeveloperByHability = (datos, hability) => {
   return validateResponse(filterDevelopers, hability)
 }
 
-const JsDevelopers = getDeveloperByHability(datos, 'JavaScript');
-console.log(`Desarrolladores JavaScript :`, JsDevelopers);
+
+const habilityToFind = 'JavaScript'
+const findDevelopers = getDeveloperByHability(datos, habilityToFind);
+console.log(`Developers with the hability ${habilityToFind}` , findDevelopers);
 
 /**
  * Get the names of the projects in an unique list
@@ -93,8 +97,8 @@ console.log(`Desarrolladores JavaScript :`, JsDevelopers);
  * @returns {Array<string>} List of projects names
  */
 
-const nombresProyectos = datos.flatMap((allProjects) => {
+const projectsNames = datos.flatMap((allProjects) => {
   return allProjects.proyectos.map((proyecto) => proyecto.nombre)
 });
 
-console.log('/* nombresProyectos */ ', nombresProyectos);
+console.log(`List of all working projects : `, projectsNames);

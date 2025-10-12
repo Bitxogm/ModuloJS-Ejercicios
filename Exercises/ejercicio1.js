@@ -41,9 +41,10 @@ const usuario = {
 
 const obtenerInicioModulo = (usuario, nombreModulo) => {
   const moduloEncontrado = usuario.temas.find((tema) => tema.modulo === nombreModulo);
-  return moduloEncontrado?.inicio ?? 'Modulo no encontrado'
+  return moduloEncontrado?.inicio ?? `Modulo ${nombreModulo} no encontrado `
 }
 
-const inicioReact = obtenerInicioModulo(usuario, 'React');
-console.log(`Inicio del modulo React:  ${inicioReact}`);
+const buscarModulo = 'React'
+const inicioReact = obtenerInicioModulo(usuario, buscarModulo);
+console.log(`Inicio del modulo ${buscarModulo} : ${inicioReact}`);
 

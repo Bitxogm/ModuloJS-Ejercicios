@@ -7,14 +7,14 @@
 const input1 = 'string';
 /**
  * Reverse the received string and  show its number of characters
- * This implementation uses non-mutating methods (split, reverse,join) for a functional approach.
+ * This implementation uses non-mutating methods (split, toReversed, join) for a functional approach.
  * @param {string} inputString
  * @returns {string} The reversed string and its length
 */
 
 // create your function here
 const reverseStringFunction = (inputString) => {
- const reversedString =  inputString.split('').reverse().join('');
+ const reversedString =  inputString.split('').toReversed().join('');
  const output = inputString.length + ' ' + reversedString;
  return output;
 }
